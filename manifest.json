@@ -1,0 +1,130 @@
+{
+  "manifest_version": 3,
+  "name": "Auto-McGraw Smartbook",
+  "version": "3.0",
+  "description": "Sends McGraw Hill SmartBook questions to an AI assistant (ChatGPT, Gemini or DeepSeek) and fills in its answers.",
+  "permissions": [
+    "tabs",
+    "scripting",
+    "storage",
+    "unlimitedStorage"
+  ],
+  "host_permissions": [
+    "https://learning.mheducation.com/*",
+    "https://ezto.mheducation.com/*",
+    "https://*.mheducation.com/*",
+    "https://chatgpt.com/*",
+    "https://gemini.google.com/*",
+    "https://chat.deepseek.com/*",
+    "https://api.github.com/*",
+    "https://api.openai.com/*",
+    "https://api.anthropic.com/*",
+    "https://generativelanguage.googleapis.com/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
+  ],
+  "optional_host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "icons": {
+    "48": "assets/icon.png"
+  },
+  "action": {
+    "default_popup": "popup/settings.html",
+    "default_icon": "assets/icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://learning.mheducation.com/static/awd/*"
+      ],
+      "js": [
+        "shared/namespace.js",
+        "shared/assistants.js",
+        "shared/settings.js",
+        "shared/api-providers.js",
+        "shared/answer-bank.js",
+        "shared/messaging.js",
+        "shared/wait.js",
+        "shared/dom.js",
+        "content/mhe/text.js",
+        "content/mhe/images.js",
+        "content/mhe/automation.js",
+        "content/mhe/toolbar.js",
+        "content/smartbook/matching.js",
+        "content/smartbook/ordering.js",
+        "content/smartbook/questions.js",
+        "content/smartbook/answers.js",
+        "content/smartbook/double-credit.js",
+        "content/smartbook/main.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://ezto.mheducation.com/*"
+      ],
+      "js": [
+        "shared/namespace.js",
+        "shared/assistants.js",
+        "shared/settings.js",
+        "shared/api-providers.js",
+        "shared/messaging.js",
+        "shared/wait.js",
+        "shared/dom.js",
+        "content/mhe/text.js",
+        "content/mhe/automation.js",
+        "content/mhe/toolbar.js",
+        "content/ezto/main.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://chatgpt.com/*"
+      ],
+      "js": [
+        "shared/namespace.js",
+        "shared/assistants.js",
+        "shared/messaging.js",
+        "shared/wait.js",
+        "shared/dom.js",
+        "content/assistant/response.js",
+        "content/assistant/bridge.js",
+        "content/assistant/chatgpt.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://gemini.google.com/*"
+      ],
+      "js": [
+        "shared/namespace.js",
+        "shared/assistants.js",
+        "shared/messaging.js",
+        "shared/wait.js",
+        "shared/dom.js",
+        "content/assistant/response.js",
+        "content/assistant/bridge.js",
+        "content/assistant/gemini.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://chat.deepseek.com/*"
+      ],
+      "js": [
+        "shared/namespace.js",
+        "shared/assistants.js",
+        "shared/messaging.js",
+        "shared/wait.js",
+        "shared/dom.js",
+        "content/assistant/response.js",
+        "content/assistant/bridge.js",
+        "content/assistant/deepseek.js"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,385 @@
+:root {
+  color-scheme: dark;
+  --bg: #0f0f11;
+  --surface: #17171a;
+  --surface-hover: #1e1e22;
+  --border: #27272c;
+  --border-strong: #3a3a41;
+  --text: #e7e7ea;
+  --text-muted: #8d8d96;
+  --accent: #4d6bfe;
+  --accent-hover: #6680ff;
+  --accent-tint: rgba(77, 107, 254, 0.1);
+  --success: #3fb950;
+  --danger: #f06a61;
+  --warning: #e3b341;
+  --radius: 8px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: 380px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.settings {
+  width: 380px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.settings-logo {
+  width: 32px;
+  height: 32px;
+}
+
+h1 {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.settings-subtitle {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.settings-section {
+  margin-bottom: 22px;
+}
+
+h2 {
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s;
+}
+
+.option:hover {
+  background: var(--surface-hover);
+}
+
+.option-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.option-title {
+  font-weight: 500;
+}
+
+.option-description {
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.source-option input,
+.assistant-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.source-option:has(input:checked),
+.assistant-option:has(input:checked) {
+  background: var(--accent-tint);
+  border-color: var(--accent);
+}
+
+.source-option:has(input:focus-visible),
+.assistant-option:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.assistant-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+
+.assistant-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.status-dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-strong);
+}
+
+.assistant-option[data-state="ready"] .status-dot,
+.assistant-option[data-state="open"] .status-dot {
+  background: var(--success);
+}
+
+.assistant-option[data-state="missing"] .status-dot {
+  background: var(--danger);
+}
+
+.assistant-option[data-state="missing"] .option-description {
+  color: var(--danger);
+}
+
+.toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 34px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--border-strong);
+  cursor: pointer;
+  appearance: none;
+  transition: background-color 0.15s;
+}
+
+.toggle::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition:
+    transform 0.15s,
+    background-color 0.15s;
+}
+
+.toggle:checked {
+  background: var(--accent);
+}
+
+.toggle:checked::before {
+  background: #fff;
+  transform: translateX(14px);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.version-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.version-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.version-row dt {
+  color: var(--text-muted);
+}
+
+.update-status {
+  font-size: 12px;
+}
+
+.update-status[data-state="checking"] {
+  color: var(--text-muted);
+}
+
+.update-status[data-state="current"] {
+  color: var(--success);
+}
+
+.update-status[data-state="available"] {
+  color: var(--warning);
+}
+
+.update-status[data-state="error"] {
+  color: var(--danger);
+}
+
+.api-panel {
+  margin-top: 8px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field[hidden],
+.option[hidden] {
+  display: none;
+}
+
+.field-label {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 7px 9px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  font: inherit;
+}
+
+.field input:focus-visible,
+.field select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.field-hint {
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.field-hint:empty,
+.update-status:empty {
+  display: none;
+}
+
+.settings-section[data-dimmed="true"] .option-list {
+  opacity: 0.5;
+}
+
+.bank-panel {
+  margin-top: 8px;
+}
+
+.panel-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.button {
+  flex: 1;
+  padding: 8px 12px;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s;
+}
+
+.button:hover {
+  background: var(--surface-hover);
+}
+
+.button:disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.button-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.button-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.button[hidden] {
+  display: none;
+}
+
+.settings-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.settings-footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.settings-footer a:hover {
+  color: var(--text);
+}
